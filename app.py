@@ -442,6 +442,16 @@ def main():
     empleo_residual = (
         Z * float(plazas_ini) + (1 - Z) * ancla_colectiva
     ) * factor_castigo
+
+    # Ancla no seleccionada: se calcula para la tabla comparativa del expander,
+    # que evidencia el efecto marginal del termino colectivo cuando Z ~ 1.
+    ancla_alterna = (
+        MEDIA_GLOBAL if ancla_sel == ANCLA_SECTORIAL else R_HAT_SECTOR[sector_sel]
+    )
+    residual_alterno = (
+        Z * float(plazas_ini) + (1 - Z) * ancla_alterna
+    ) * factor_castigo
+
     st.caption(
         f"Riesgo anual efectivo: **{riesgo_efectivo:.2%}** "
         f"(base {riesgo_base:.1%} x sector {mult_sector:.2f} x tamano {mult_tamano:.3f})"
@@ -517,9 +527,6 @@ def main():
         graficar_histograma(empleo_hist[-1], m["p5_incond"]), use_container_width=True
     )
 
-    alterna = (
-        MEDIA_GLOBAL if ancla_sel == ANCLA_SECTORIAL else R_HAT_SECTOR[sector_sel]
-    )
     delta_abs = abs(empleo_residual - residual_alterno)
     with st.expander("Nota sobre el factor de credibilidad Z"):
         st.markdown(
@@ -532,7 +539,7 @@ ancla apenas altera el resultado**:
 | Ancla | Valor | Empleo residual |
 |---|---|---|
 | {ancla_sel} (activa) | {ancla_colectiva:.4f} | {empleo_residual:.4f} plazas |
-| Alternativa | {alterna:.4f} | {residual_alterno:.4f} plazas |
+| Alternativa | {ancla_alterna:.4f} | {residual_alterno:.4f} plazas |
 
 Diferencia: **{delta_abs:.4f} plazas** ({delta_abs / max(empleo_residual, 1e-9):.2%}).
 

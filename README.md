@@ -31,7 +31,7 @@ La app queda disponible en `http://localhost:8501`.
 pytest
 ```
 
-68 pruebas cubren coherencia analítica, consistencia VaR/CVaR, rendimiento, dominio del empleo, reproducibilidad y monotonía frente al tamaño.
+78 pruebas cubren coherencia analítica, consistencia VaR/CVaR, rendimiento, dominio del empleo, reproducibilidad, monotonía frente al tamaño y ejecución end-to-end de la interfaz con `AppTest`.
 
 ---
 
@@ -152,7 +152,7 @@ Con Z tan próximo a 1, la fórmula de credibilidad pondera la experiencia indiv
 ├── .streamlit/
 │   └── config.toml         # Tema oscuro
 ├── tests/
-│   └── test_motor.py       # 68 pruebas
+│   └── test_motor.py       # 78 pruebas (motor + interfaz)
 └── docs/
     ├── AI_STUDIO.md        # Proceso de generación en Google AI Studio
     └── PROMPT.md           # Prompt íntegro utilizado
